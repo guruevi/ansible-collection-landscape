@@ -4,11 +4,12 @@
     register_parameter_ssl: "--ssl-public-key {{ client_landscape_ssl }}"
   when: client_landscape_ssl is defined
 
-- name: Set account name (if set)
+- name: Set client tags (if set)
   ansible.builtin.set_fact:
     register_parameter_tags: "--tags {{ client_tags }}"
   when: client_tags is defined
-- name: Set account name (if not set)
+
+- name: Set client tags (if not set)
   ansible.builtin.set_fact:
     register_parameter_tags: ''
   when: client_tags is undefined
@@ -17,6 +18,7 @@
   ansible.builtin.set_fact:
     register_parameter_key: "--registration-key {{ client_registration_key }}"
   when: client_registration_key is defined
+
 - name: Set registration key (if not set)
   ansible.builtin.set_fact:
     register_parameter_key: ''
@@ -24,13 +26,13 @@
 
 - name: Set computer title (if not set)
   ansible.builtin.set_fact:
-    register_parameter_title: "--computer-title '{{ ansible_fqdn }}'"
-  when: client_computer_title is undefined
+    register_parameter_title: "--computer-title '{{ client_computer_title | default(ansible_fqdn, True) }}'"
 
 - name: Set account name (if set)
   ansible.builtin.set_fact:
     register_parameter_account: "--account-name {{ client_account_name }}"
   when: client_account_name is defined
+
 - name: Set account name (if not set)
   ansible.builtin.set_fact:
     register_parameter_account: ''
