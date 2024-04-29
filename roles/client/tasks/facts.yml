@@ -4,6 +4,11 @@
     register_parameter_ssl: "--ssl-public-key {{ client_landscape_ssl }}"
   when: client_landscape_ssl is defined
 
+- name: Set SSL certificate (if not set)
+  ansible.builtin.set_fact:
+    register_parameter_ssl: ""
+  when: client_landscape_ssl is undefined
+
 - name: Set client tags (if set)
   ansible.builtin.set_fact:
     register_parameter_tags: "--tags {{ client_tags }}"
