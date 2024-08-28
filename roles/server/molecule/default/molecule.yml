@@ -4,10 +4,10 @@ dependency:
 driver:
   name: vagrant
 platforms:
-  - name: landscape-server-2303
-    box: generic/ubuntu2204
-  - name: landscape-server-2310
-    box: generic/ubuntu2204
+  - name: landscape-server-2404
+    box: bento/ubuntu-24.04
+    cpus: 4
+    memory: 4096
 provisioner:
   name: ansible
 verifier:
